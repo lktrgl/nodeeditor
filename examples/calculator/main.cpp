@@ -31,29 +31,29 @@ static std::shared_ptr<DataModelRegistry>
 registerDataModels()
 {
   auto ret = std::make_shared<DataModelRegistry>();
-  ret->registerModel<NumberSourceDataModel>("Sources");
+  ret->registerModel<NumberSourceDataModel> ( "Sources" );
 
-  ret->registerModel<NumberDisplayDataModel>("Displays");
+  ret->registerModel<NumberDisplayDataModel> ( "Displays" );
 
-  ret->registerModel<AdditionModel>("Operators");
+  ret->registerModel<AdditionModel> ( "Operators" );
 
-  ret->registerModel<SubtractionModel>("Operators");
+  ret->registerModel<SubtractionModel> ( "Operators" );
 
-  ret->registerModel<MultiplicationModel>("Operators");
+  ret->registerModel<MultiplicationModel> ( "Operators" );
 
-  ret->registerModel<DivisionModel>("Operators");
+  ret->registerModel<DivisionModel> ( "Operators" );
 
-  ret->registerModel<ModuloModel>("Operators");
+  ret->registerModel<ModuloModel> ( "Operators" );
 
-  ret->registerTypeConverter(std::make_pair(DecimalData().type(),
-                                            IntegerData().type()),
-                             TypeConverter{DecimalToIntegerConverter()});
+  ret->registerTypeConverter ( std::make_pair ( DecimalData().type(),
+                               IntegerData().type() ),
+                               TypeConverter{DecimalToIntegerConverter() } );
 
 
 
-  ret->registerTypeConverter(std::make_pair(IntegerData().type(),
-                                            DecimalData().type()),
-                             TypeConverter{IntegerToDecimalConverter()});
+  ret->registerTypeConverter ( std::make_pair ( IntegerData().type(),
+                               DecimalData().type() ),
+                               TypeConverter{IntegerToDecimalConverter() } );
 
   return ret;
 }
@@ -63,8 +63,8 @@ static
 void
 setStyle()
 {
-  ConnectionStyle::setConnectionStyle(
-  R"(
+  ConnectionStyle::setConnectionStyle (
+    R"(
   {
     "ConnectionStyle": {
       "ConstructionColor": "gray",
@@ -80,39 +80,39 @@ setStyle()
       "UseDataDefinedColors": true
     }
   }
-  )");
+  )" );
 }
 
 
 int
-main(int argc, char *argv[])
+main ( int argc, char* argv[] )
 {
-  QApplication app(argc, argv);
+  QApplication app ( argc, argv );
 
   setStyle();
 
   QWidget mainWidget;
 
   auto menuBar    = new QMenuBar();
-  auto saveAction = menuBar->addAction("Save..");
-  auto loadAction = menuBar->addAction("Load..");
+  auto saveAction = menuBar->addAction ( "Save.." );
+  auto loadAction = menuBar->addAction ( "Load.." );
 
-  QVBoxLayout *l = new QVBoxLayout(&mainWidget);
+  QVBoxLayout* l = new QVBoxLayout ( &mainWidget );
 
-  l->addWidget(menuBar);
-  auto scene = new FlowScene(registerDataModels(), &mainWidget);
-  l->addWidget(new FlowView(scene));
-  l->setContentsMargins(0, 0, 0, 0);
-  l->setSpacing(0);
+  l->addWidget ( menuBar );
+  auto scene = new FlowScene ( registerDataModels(), &mainWidget );
+  l->addWidget ( new FlowView ( scene ) );
+  l->setContentsMargins ( 0, 0, 0, 0 );
+  l->setSpacing ( 0 );
 
-  QObject::connect(saveAction, &QAction::triggered,
-                   scene, &FlowScene::save);
+  QObject::connect ( saveAction, &QAction::triggered,
+                     scene, &FlowScene::save );
 
-  QObject::connect(loadAction, &QAction::triggered,
-                   scene, &FlowScene::load);
+  QObject::connect ( loadAction, &QAction::triggered,
+                     scene, &FlowScene::load );
 
-  mainWidget.setWindowTitle("Dataflow tools: simplest calculator");
-  mainWidget.resize(800, 600);
+  mainWidget.setWindowTitle ( "Dataflow tools: simplest calculator" );
+  mainWidget.resize ( 800, 600 );
   mainWidget.showNormal();
 
   return app.exec();

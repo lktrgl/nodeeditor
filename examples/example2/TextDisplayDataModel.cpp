@@ -2,29 +2,29 @@
 
 TextDisplayDataModel::
 TextDisplayDataModel()
-  : _label(new QLabel("Resulting Text"))
+  : _label ( new QLabel ( "Resulting Text" ) )
 {
-  _label->setMargin(3);
+  _label->setMargin ( 3 );
 }
 
 
 unsigned int
 TextDisplayDataModel::
-nPorts(PortType portType) const
+nPorts ( PortType portType ) const
 {
   unsigned int result = 1;
 
-  switch (portType)
+  switch ( portType )
   {
-    case PortType::In:
-      result = 1;
-      break;
+  case PortType::In:
+    result = 1;
+    break;
 
-    case PortType::Out:
-      result = 0;
+  case PortType::Out:
+    result = 0;
 
-    default:
-      break;
+  default:
+    break;
   }
 
   return result;
@@ -33,7 +33,7 @@ nPorts(PortType portType) const
 
 NodeDataType
 TextDisplayDataModel::
-dataType(PortType, PortIndex) const
+dataType ( PortType, PortIndex ) const
 {
   return TextData().type();
 }
@@ -41,7 +41,7 @@ dataType(PortType, PortIndex) const
 
 std::shared_ptr<NodeData>
 TextDisplayDataModel::
-outData(PortIndex)
+outData ( PortIndex )
 {
   std::shared_ptr<NodeData> ptr;
   return ptr;

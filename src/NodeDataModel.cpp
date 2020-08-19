@@ -7,7 +7,7 @@ using QtNodes::NodeStyle;
 
 NodeDataModel::
 NodeDataModel()
-  : _nodeStyle(StyleCollection::nodeStyle())
+  : _nodeStyle ( StyleCollection::nodeStyle() )
 {
   // Derived classes can initialize specific style here
 }
@@ -35,7 +35,7 @@ nodeStyle() const
 
 void
 NodeDataModel::
-setNodeStyle(NodeStyle const& style)
+setNodeStyle ( NodeStyle const& style )
 {
   _nodeStyle = style;
 }

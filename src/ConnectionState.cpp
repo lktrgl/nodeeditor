@@ -19,9 +19,9 @@ ConnectionState::
 
 void
 ConnectionState::
-interactWithNode(Node* node)
+interactWithNode ( Node* node )
 {
-  if (node)
+  if ( node )
   {
     _lastHoveredNode = node;
   }
@@ -34,7 +34,7 @@ interactWithNode(Node* node)
 
 void
 ConnectionState::
-setLastHoveredNode(Node* node)
+setLastHoveredNode ( Node* node )
 {
   _lastHoveredNode = node;
 }
@@ -44,8 +44,10 @@ void
 ConnectionState::
 resetLastHoveredNode()
 {
-  if (_lastHoveredNode)
+  if ( _lastHoveredNode )
+  {
     _lastHoveredNode->resetReactionToConnection();
+  }
 
   _lastHoveredNode = nullptr;
 }

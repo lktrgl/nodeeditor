@@ -24,22 +24,22 @@ public:
 };
 }
 
-TEST_CASE("DataModelRegistry::registerModel", "[interface]")
+TEST_CASE ( "DataModelRegistry::registerModel", "[interface]" )
 {
   DataModelRegistry registry;
 
-  SECTION("stub model")
+  SECTION ( "stub model" )
   {
     registry.registerModel<StubNodeDataModel>();
-    auto model = registry.create("name");
+    auto model = registry.create ( "name" );
 
-    CHECK(model->name() == "name");
+    CHECK ( model->name() == "name" );
   }
-  SECTION("stub model with static name")
+  SECTION ( "stub model with static name" )
   {
     registry.registerModel<StubModelStaticName>();
-    auto model = registry.create("Name");
+    auto model = registry.create ( "Name" );
 
-    CHECK(model->name() == "name");
+    CHECK ( model->name() == "name" );
   }
 }

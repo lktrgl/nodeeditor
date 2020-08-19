@@ -12,10 +12,10 @@ class ConnectionBlurEffect : public QGraphicsBlurEffect
 
 public:
 
-  ConnectionBlurEffect(ConnectionGraphicsObject* item);
+  ConnectionBlurEffect ( ConnectionGraphicsObject* item );
 
   void
-  draw(QPainter* painter) override;
+  draw ( QPainter* painter ) override;
 
 private:
 };

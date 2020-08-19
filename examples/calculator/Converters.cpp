@@ -8,14 +8,14 @@
 
 std::shared_ptr<NodeData>
 DecimalToIntegerConverter::
-operator()(std::shared_ptr<NodeData> data)
+operator() ( std::shared_ptr<NodeData> data )
 {
   auto numberData =
-    std::dynamic_pointer_cast<DecimalData>(data);
+    std::dynamic_pointer_cast<DecimalData> ( data );
 
-  if (numberData)
+  if ( numberData )
   {
-    _integer = std::make_shared<IntegerData>(numberData->number());
+    _integer = std::make_shared<IntegerData> ( numberData->number() );
   }
   else
   {
@@ -28,14 +28,14 @@ operator()(std::shared_ptr<NodeData> data)
 
 std::shared_ptr<NodeData>
 IntegerToDecimalConverter::
-operator()(std::shared_ptr<NodeData> data)
+operator() ( std::shared_ptr<NodeData> data )
 {
   auto numberData =
-    std::dynamic_pointer_cast<IntegerData>(data);
+    std::dynamic_pointer_cast<IntegerData> ( data );
 
-  if (numberData)
+  if ( numberData )
   {
-    _decimal = std::make_shared<DecimalData>(numberData->number());
+    _decimal = std::make_shared<DecimalData> ( numberData->number() );
   }
   else
   {

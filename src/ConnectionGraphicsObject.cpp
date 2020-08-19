@@ -25,29 +25,29 @@ using QtNodes::Connection;
 using QtNodes::FlowScene;
 
 ConnectionGraphicsObject::
-ConnectionGraphicsObject(FlowScene &scene,
-                         Connection &connection)
-  : _scene(scene)
-  , _connection(connection)
+ConnectionGraphicsObject ( FlowScene& scene,
+                           Connection& connection )
+  : _scene ( scene )
+  , _connection ( connection )
 {
-  _scene.addItem(this);
+  _scene.addItem ( this );
 
-  setFlag(QGraphicsItem::ItemIsMovable, true);
-  setFlag(QGraphicsItem::ItemIsFocusable, true);
-  setFlag(QGraphicsItem::ItemIsSelectable, true);
+  setFlag ( QGraphicsItem::ItemIsMovable, true );
+  setFlag ( QGraphicsItem::ItemIsFocusable, true );
+  setFlag ( QGraphicsItem::ItemIsSelectable, true );
 
-  setAcceptHoverEvents(true);
+  setAcceptHoverEvents ( true );
 
   // addGraphicsEffect();
 
-  setZValue(-1.0);
+  setZValue ( -1.0 );
 }
 
 
 ConnectionGraphicsObject::
 ~ConnectionGraphicsObject()
 {
-  _scene.removeItem(this);
+  _scene.removeItem ( this );
 }
 
 
@@ -79,10 +79,10 @@ shape() const
   //return path;
 
 #else
-  auto const &geom =
+  auto const& geom =
     _connection.connectionGeometry();
 
-  return ConnectionPainter::getPainterStroke(geom);
+  return ConnectionPainter::getPainterStroke ( geom );
 
 #endif
 }
@@ -100,25 +100,28 @@ void
 ConnectionGraphicsObject::
 move()
 {
-  for(PortType portType: { PortType::In, PortType::Out } )
+  for ( PortType portType :
+        {
+          PortType::In, PortType::Out
+        } )
   {
-    if (auto node = _connection.getNode(portType))
+    if ( auto node = _connection.getNode ( portType ) )
     {
-      auto const &nodeGraphics = node->nodeGraphicsObject();
+      auto const& nodeGraphics = node->nodeGraphicsObject();
 
-      auto const &nodeGeom = node->nodeGeometry();
+      auto const& nodeGeom = node->nodeGeometry();
 
       QPointF scenePos =
-        nodeGeom.portScenePosition(_connection.getPortIndex(portType),
-                                   portType,
-                                   nodeGraphics.sceneTransform());
+        nodeGeom.portScenePosition ( _connection.getPortIndex ( portType ),
+                                     portType,
+                                     nodeGraphics.sceneTransform() );
 
       QTransform sceneTransform = this->sceneTransform();
 
-      QPointF connectionPos = sceneTransform.inverted().map(scenePos);
+      QPointF connectionPos = sceneTransform.inverted().map ( scenePos );
 
-      _connection.connectionGeometry().setEndPoint(portType,
-                                                   connectionPos);
+      _connection.connectionGeometry().setEndPoint ( portType,
+          connectionPos );
 
       _connection.getConnectionGraphicsObject().setGeometryChanged();
       _connection.getConnectionGraphicsObject().update();
@@ -127,55 +130,56 @@ move()
 
 }
 
-void ConnectionGraphicsObject::lock(bool locked)
+void ConnectionGraphicsObject::lock ( bool locked )
 {
-  setFlag(QGraphicsItem::ItemIsMovable, !locked);
-  setFlag(QGraphicsItem::ItemIsFocusable, !locked);
-  setFlag(QGraphicsItem::ItemIsSelectable, !locked);
+  setFlag ( QGraphicsItem::ItemIsMovable, !locked );
+  setFlag ( QGraphicsItem::ItemIsFocusable, !locked );
+  setFlag ( QGraphicsItem::ItemIsSelectable, !locked );
 }
 
 
 void
 ConnectionGraphicsObject::
-paint(QPainter* painter,
-      QStyleOptionGraphicsItem const* option,
-      QWidget*)
+paint ( QPainter* painter,
+        QStyleOptionGraphicsItem const* option,
+        QWidget* )
 {
-  painter->setClipRect(option->exposedRect);
+  painter->setClipRect ( option->exposedRect );
 
-  ConnectionPainter::paint(painter,
-                           _connection);
+  ConnectionPainter::paint ( painter,
+                             _connection );
 }
 
 
 void
 ConnectionGraphicsObject::
-mousePressEvent(QGraphicsSceneMouseEvent* event)
+mousePressEvent ( QGraphicsSceneMouseEvent* event )
 {
-  QGraphicsItem::mousePressEvent(event);
+  QGraphicsItem::mousePressEvent ( event );
   //event->ignore();
 }
 
 
 void
 ConnectionGraphicsObject::
-mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+mouseMoveEvent ( QGraphicsSceneMouseEvent* event )
 {
   prepareGeometryChange();
 
-  auto view = static_cast<QGraphicsView*>(event->widget());
-  auto node = locateNodeAt(event->scenePos(),
-                           _scene,
-                           view->transform());
+  auto view = static_cast<QGraphicsView*> ( event->widget() );
+  auto node = locateNodeAt ( event->scenePos(),
+                             _scene,
+                             view->transform() );
 
-  auto &state = _connection.connectionState();
+  auto& state = _connection.connectionState();
 
-  state.interactWithNode(node);
-  if (node)
+  state.interactWithNode ( node );
+
+  if ( node )
   {
-    node->reactToPossibleConnection(state.requiredPort(),
-                                    _connection.dataType(oppositePort(state.requiredPort())),
-                                    event->scenePos());
+    node->reactToPossibleConnection ( state.requiredPort(),
+                                      _connection.dataType ( oppositePort ( state.requiredPort() ) ),
+                                      event->scenePos() );
   }
 
   //-------------------
@@ -184,9 +188,9 @@ mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
   auto requiredPort = _connection.requiredPort();
 
-  if (requiredPort != PortType::None)
+  if ( requiredPort != PortType::None )
   {
-    _connection.connectionGeometry().moveEndPoint(requiredPort, offset);
+    _connection.connectionGeometry().moveEndPoint ( requiredPort, offset );
   }
 
   //-------------------
@@ -199,48 +203,48 @@ mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 void
 ConnectionGraphicsObject::
-mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+mouseReleaseEvent ( QGraphicsSceneMouseEvent* event )
 {
   ungrabMouse();
   event->accept();
 
-  auto node = locateNodeAt(event->scenePos(), _scene,
-                           _scene.views()[0]->transform());
+  auto node = locateNodeAt ( event->scenePos(), _scene,
+                             _scene.views() [0]->transform() );
 
-  NodeConnectionInteraction interaction(*node, _connection, _scene);
+  NodeConnectionInteraction interaction ( *node, _connection, _scene );
 
-  if (node && interaction.tryConnect())
+  if ( node && interaction.tryConnect() )
   {
     node->resetReactionToConnection();
   }
 
-  if (_connection.connectionState().requiresPort())
+  if ( _connection.connectionState().requiresPort() )
   {
-    _scene.deleteConnection(_connection);
+    _scene.deleteConnection ( _connection );
   }
 }
 
 
 void
 ConnectionGraphicsObject::
-hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+hoverEnterEvent ( QGraphicsSceneHoverEvent* event )
 {
-  _connection.connectionGeometry().setHovered(true);
+  _connection.connectionGeometry().setHovered ( true );
 
   update();
-  _scene.connectionHovered(connection(), event->screenPos());
+  _scene.connectionHovered ( connection(), event->screenPos() );
   event->accept();
 }
 
 
 void
 ConnectionGraphicsObject::
-hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+hoverLeaveEvent ( QGraphicsSceneHoverEvent* event )
 {
-  _connection.connectionGeometry().setHovered(false);
+  _connection.connectionGeometry().setHovered ( false );
 
   update();
-  _scene.connectionHoverLeft(connection());
+  _scene.connectionHoverLeft ( connection() );
   event->accept();
 }
 
@@ -251,8 +255,8 @@ addGraphicsEffect()
 {
   auto effect = new QGraphicsBlurEffect;
 
-  effect->setBlurRadius(5);
-  setGraphicsEffect(effect);
+  effect->setBlurRadius ( 5 );
+  setGraphicsEffect ( effect );
 
   //auto effect = new QGraphicsDropShadowEffect;
   //auto effect = new ConnectionBlurEffect(this);

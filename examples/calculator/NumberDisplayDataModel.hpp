@@ -30,33 +30,42 @@ public:
 
   QString
   caption() const override
-  { return QStringLiteral("Result"); }
+  {
+    return QStringLiteral ( "Result" );
+  }
 
   bool
   captionVisible() const override
-  { return false; }
+  {
+    return false;
+  }
 
   QString
   name() const override
-  { return QStringLiteral("Result"); }
+  {
+    return QStringLiteral ( "Result" );
+  }
 
 public:
 
   unsigned int
-  nPorts(PortType portType) const override;
+  nPorts ( PortType portType ) const override;
 
   NodeDataType
-  dataType(PortType portType,
-           PortIndex portIndex) const override;
+  dataType ( PortType portType,
+             PortIndex portIndex ) const override;
 
   std::shared_ptr<NodeData>
-  outData(PortIndex port) override;
+  outData ( PortIndex port ) override;
 
   void
-  setInData(std::shared_ptr<NodeData> data, int) override;
+  setInData ( std::shared_ptr<NodeData> data, int ) override;
 
-  QWidget *
-  embeddedWidget() override { return _label; }
+  QWidget*
+  embeddedWidget() override
+  {
+    return _label;
+  }
 
   NodeValidationState
   validationState() const override;
@@ -67,7 +76,7 @@ public:
 private:
 
   NodeValidationState modelValidationState = NodeValidationState::Warning;
-  QString modelValidationError = QStringLiteral("Missing or incorrect inputs");
+  QString modelValidationError = QStringLiteral ( "Missing or incorrect inputs" );
 
-  QLabel * _label;
+  QLabel* _label;
 };

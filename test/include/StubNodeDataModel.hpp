@@ -19,7 +19,10 @@ public:
     return _caption;
   }
 
-  unsigned int nPorts(QtNodes::PortType) const override { return 0; }
+  unsigned int nPorts ( QtNodes::PortType ) const override
+  {
+    return 0;
+  }
 
   QWidget*
   embeddedWidget() override
@@ -27,30 +30,30 @@ public:
     return nullptr;
   }
 
-  QtNodes::NodeDataType dataType(QtNodes::PortType, QtNodes::PortIndex) const override
+  QtNodes::NodeDataType dataType ( QtNodes::PortType, QtNodes::PortIndex ) const override
   {
     return QtNodes::NodeDataType();
   }
 
-  std::shared_ptr<QtNodes::NodeData> outData(QtNodes::PortIndex) override
+  std::shared_ptr<QtNodes::NodeData> outData ( QtNodes::PortIndex ) override
   {
     return nullptr;
   }
 
-  void setInData(std::shared_ptr<QtNodes::NodeData>, QtNodes::PortIndex) override
+  void setInData ( std::shared_ptr<QtNodes::NodeData>, QtNodes::PortIndex ) override
   {
   }
 
   void
-  name(QString name)
+  name ( QString name )
   {
-    _name = std::move(name);
+    _name = std::move ( name );
   }
 
   void
-  caption(QString caption)
+  caption ( QString caption )
   {
-    _caption = std::move(caption);
+    _caption = std::move ( caption );
   }
 
 private:

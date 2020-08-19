@@ -33,15 +33,21 @@ public:
 
   QString
   caption() const override
-  { return QStringLiteral("Number Source"); }
+  {
+    return QStringLiteral ( "Number Source" );
+  }
 
   bool
   captionVisible() const override
-  { return false; }
+  {
+    return false;
+  }
 
   QString
   name() const override
-  { return QStringLiteral("NumberSource"); }
+  {
+    return QStringLiteral ( "NumberSource" );
+  }
 
 public:
 
@@ -49,34 +55,37 @@ public:
   save() const override;
 
   void
-  restore(QJsonObject const &p) override;
+  restore ( QJsonObject const& p ) override;
 
 public:
 
   unsigned int
-  nPorts(PortType portType) const override;
+  nPorts ( PortType portType ) const override;
 
   NodeDataType
-  dataType(PortType portType, PortIndex portIndex) const override;
+  dataType ( PortType portType, PortIndex portIndex ) const override;
 
   std::shared_ptr<NodeData>
-  outData(PortIndex port) override;
+  outData ( PortIndex port ) override;
 
   void
-  setInData(std::shared_ptr<NodeData>, int) override
+  setInData ( std::shared_ptr<NodeData>, int ) override
   { }
 
-  QWidget *
-  embeddedWidget() override { return _lineEdit; }
+  QWidget*
+  embeddedWidget() override
+  {
+    return _lineEdit;
+  }
 
 private Q_SLOTS:
 
   void
-  onTextEdited(QString const &string);
+  onTextEdited ( QString const& string );
 
 private:
 
   std::shared_ptr<DecimalData> _number;
 
-  QLineEdit * _lineEdit;
+  QLineEdit* _lineEdit;
 };

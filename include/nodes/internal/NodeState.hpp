@@ -30,33 +30,33 @@ public:
 
 public:
 
-  NodeState(std::unique_ptr<NodeDataModel> const &model);
+  NodeState ( std::unique_ptr<NodeDataModel> const& model );
 
 public:
 
   using ConnectionPtrSet =
-          std::unordered_map<QUuid, Connection*>;
+    std::unordered_map<QUuid, Connection*>;
 
   /// Returns vector of connections ID.
   /// Some of them can be empty (null)
   std::vector<ConnectionPtrSet> const&
-  getEntries(PortType) const;
+  getEntries ( PortType ) const;
 
-  std::vector<ConnectionPtrSet> &
-  getEntries(PortType);
+  std::vector<ConnectionPtrSet>&
+  getEntries ( PortType );
 
   ConnectionPtrSet
-  connections(PortType portType, PortIndex portIndex) const;
+  connections ( PortType portType, PortIndex portIndex ) const;
 
   void
-  setConnection(PortType portType,
-                PortIndex portIndex,
-                Connection& connection);
-
-  void
-  eraseConnection(PortType portType,
+  setConnection ( PortType portType,
                   PortIndex portIndex,
-                  QUuid id);
+                  Connection& connection );
+
+  void
+  eraseConnection ( PortType portType,
+                    PortIndex portIndex,
+                    QUuid id );
 
   ReactToConnectionState
   reaction() const;
@@ -68,17 +68,17 @@ public:
   reactingDataType() const;
 
   void
-  setReaction(ReactToConnectionState reaction,
-              PortType reactingPortType = PortType::None,
+  setReaction ( ReactToConnectionState reaction,
+                PortType reactingPortType = PortType::None,
 
-              NodeDataType reactingDataType =
-                NodeDataType());
+                NodeDataType reactingDataType =
+                  NodeDataType() );
 
   bool
   isReacting() const;
 
   void
-  setResizing(bool resizing);
+  setResizing ( bool resizing );
 
   bool
   resizing() const;

@@ -34,7 +34,7 @@ class NODE_EDITOR_PUBLIC Node
 public:
 
   /// NodeDataModel should be an rvalue and is moved into the Node
-  Node(std::unique_ptr<NodeDataModel> && dataModel);
+  Node ( std::unique_ptr<NodeDataModel>&& dataModel );
 
   virtual
   ~Node();
@@ -45,30 +45,30 @@ public:
   save() const override;
 
   void
-  restore(QJsonObject const &json) override;
+  restore ( QJsonObject const& json ) override;
 
 public:
 
   QUuid
   id() const;
 
-  void reactToPossibleConnection(PortType,
-                                 NodeDataType const &,
-                                 QPointF const & scenePoint);
+  void reactToPossibleConnection ( PortType,
+                                   NodeDataType const&,
+                                   QPointF const& scenePoint );
 
   void
   resetReactionToConnection();
 
 public:
 
-  NodeGraphicsObject const &
+  NodeGraphicsObject const&
   nodeGraphicsObject() const;
 
-  NodeGraphicsObject &
+  NodeGraphicsObject&
   nodeGraphicsObject();
 
   void
-  setGraphicsObject(std::unique_ptr<NodeGraphicsObject>&& graphics);
+  setGraphicsObject ( std::unique_ptr<NodeGraphicsObject>&& graphics );
 
   NodeGeometry&
   nodeGeometry();
@@ -76,10 +76,10 @@ public:
   NodeGeometry const&
   nodeGeometry() const;
 
-  NodeState const &
+  NodeState const&
   nodeState() const;
 
-  NodeState &
+  NodeState&
   nodeState();
 
   NodeDataModel*
@@ -89,13 +89,13 @@ public Q_SLOTS: // data propagation
 
   /// Propagates incoming data to the underlying model.
   void
-  propagateData(std::shared_ptr<NodeData> nodeData,
-                PortIndex inPortIndex) const;
+  propagateData ( std::shared_ptr<NodeData> nodeData,
+                  PortIndex inPortIndex ) const;
 
   /// Fetches data from model's OUT #index port
   /// and propagates it to the connection
   void
-  onDataUpdated(PortIndex index);
+  onDataUpdated ( PortIndex index );
 
   /// update the graphic part if the size of the embeddedwidget changes
   void

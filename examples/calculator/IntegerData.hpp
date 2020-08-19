@@ -12,11 +12,11 @@ class IntegerData : public NodeData
 public:
 
   IntegerData()
-    : _number(0.0)
+    : _number ( 0.0 )
   {}
 
-  IntegerData(int const number)
-    : _number(number)
+  IntegerData ( int const number )
+    : _number ( number )
   {}
 
   NodeDataType type() const override
@@ -26,10 +26,14 @@ public:
   }
 
   int number() const
-  { return _number; }
+  {
+    return _number;
+  }
 
   QString numberAsText() const
-  { return QString::number(_number); }
+  {
+    return QString::number ( _number );
+  }
 
 private:
 

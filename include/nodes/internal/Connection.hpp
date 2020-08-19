@@ -37,19 +37,19 @@ public:
   /// New Connection is attached to the port of the given Node.
   /// The port has parameters (portType, portIndex).
   /// The opposite connection end will require anothre port.
-  Connection(PortType portType,
-             Node& node,
-             PortIndex portIndex);
+  Connection ( PortType portType,
+               Node& node,
+               PortIndex portIndex );
 
-  Connection(Node& nodeIn,
-             PortIndex portIndexIn,
-             Node& nodeOut,
-             PortIndex portIndexOut,
-             TypeConverter converter =
-               TypeConverter{});
+  Connection ( Node& nodeIn,
+               PortIndex portIndexIn,
+               Node& nodeOut,
+               PortIndex portIndexOut,
+               TypeConverter converter =
+                 TypeConverter{} );
 
-  Connection(const Connection&) = delete;
-  Connection operator=(const Connection&) = delete;
+  Connection ( const Connection& ) = delete;
+  Connection operator= ( const Connection& ) = delete;
 
   ~Connection();
 
@@ -67,19 +67,19 @@ public:
   /// Invalidates Node address.
   /// Grabs mouse.
   void
-  setRequiredPort(PortType portType);
+  setRequiredPort ( PortType portType );
   PortType
   requiredPort() const;
 
   void
-  setGraphicsObject(std::unique_ptr<ConnectionGraphicsObject>&& graphics);
+  setGraphicsObject ( std::unique_ptr<ConnectionGraphicsObject>&& graphics );
 
   /// Assigns a node to the required port.
   /// It is assumed that there is a required port, no extra checks
   void
-  setNodeToPort(Node& node,
-                PortType portType,
-                PortIndex portIndex);
+  setNodeToPort ( Node& node,
+                  PortType portType,
+                  PortIndex portIndex );
 
   void
   removeFromNodes() const;
@@ -89,7 +89,7 @@ public:
   ConnectionGraphicsObject&
   getConnectionGraphicsObject() const;
 
-  ConnectionState const &
+  ConnectionState const&
   connectionState() const;
   ConnectionState&
   connectionState();
@@ -101,22 +101,22 @@ public:
   connectionGeometry() const;
 
   Node*
-  getNode(PortType portType) const;
+  getNode ( PortType portType ) const;
 
   Node*&
-  getNode(PortType portType);
+  getNode ( PortType portType );
 
   PortIndex
-  getPortIndex(PortType portType) const;
+  getPortIndex ( PortType portType ) const;
 
   void
-  clearNode(PortType portType);
+  clearNode ( PortType portType );
 
   NodeDataType
-  dataType(PortType portType) const;
+  dataType ( PortType portType ) const;
 
   void
-  setTypeConverter(TypeConverter converter);
+  setTypeConverter ( TypeConverter converter );
 
   bool
   complete() const;
@@ -124,7 +124,7 @@ public:
 public: // data propagation
 
   void
-  propagateData(std::shared_ptr<NodeData> nodeData) const;
+  propagateData ( std::shared_ptr<NodeData> nodeData ) const;
 
   void
   propagateEmptyData() const;
@@ -132,10 +132,10 @@ public: // data propagation
 Q_SIGNALS:
 
   void
-  connectionCompleted(Connection const&) const;
+  connectionCompleted ( Connection const& ) const;
 
   void
-  connectionMadeIncomplete(Connection const&) const;
+  connectionMadeIncomplete ( Connection const& ) const;
 
 private:
 
@@ -161,6 +161,6 @@ private:
 Q_SIGNALS:
 
   void
-  updated(Connection& conn) const;
+  updated ( Connection& conn ) const;
 };
 }

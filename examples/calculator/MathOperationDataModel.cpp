@@ -4,14 +4,18 @@
 
 unsigned int
 MathOperationDataModel::
-nPorts(PortType portType) const
+nPorts ( PortType portType ) const
 {
   unsigned int result;
 
-  if (portType == PortType::In)
+  if ( portType == PortType::In )
+  {
     result = 2;
+  }
   else
+  {
     result = 1;
+  }
 
   return result;
 }
@@ -19,7 +23,7 @@ nPorts(PortType portType) const
 
 NodeDataType
 MathOperationDataModel::
-dataType(PortType, PortIndex) const
+dataType ( PortType, PortIndex ) const
 {
   return DecimalData().type();
 }
@@ -27,20 +31,20 @@ dataType(PortType, PortIndex) const
 
 std::shared_ptr<NodeData>
 MathOperationDataModel::
-outData(PortIndex)
+outData ( PortIndex )
 {
-  return std::static_pointer_cast<NodeData>(_result);
+  return std::static_pointer_cast<NodeData> ( _result );
 }
 
 
 void
 MathOperationDataModel::
-setInData(std::shared_ptr<NodeData> data, PortIndex portIndex)
+setInData ( std::shared_ptr<NodeData> data, PortIndex portIndex )
 {
   auto numberData =
-    std::dynamic_pointer_cast<DecimalData>(data);
+    std::dynamic_pointer_cast<DecimalData> ( data );
 
-  if (portIndex == 0)
+  if ( portIndex == 0 )
   {
     _number1 = numberData;
   }

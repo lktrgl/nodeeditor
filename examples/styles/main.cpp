@@ -32,8 +32,8 @@ static
 void
 setStyle()
 {
-  FlowViewStyle::setStyle(
-  R"(
+  FlowViewStyle::setStyle (
+    R"(
   {
     "FlowViewStyle": {
       "BackgroundColor": [255, 255, 240],
@@ -41,10 +41,10 @@ setStyle()
       "CoarseGridColor": [235, 235, 220]
     }
   }
-  )");
+  )" );
 
-  NodeStyle::setNodeStyle(
-  R"(
+  NodeStyle::setNodeStyle (
+    R"(
   {
     "NodeStyle": {
       "NormalBoundaryColor": "darkgray",
@@ -63,10 +63,10 @@ setStyle()
       "Opacity": 1.0
     }
   }
-  )");
+  )" );
 
-  ConnectionStyle::setConnectionStyle(
-  R"(
+  ConnectionStyle::setConnectionStyle (
+    R"(
   {
     "ConnectionStyle": {
       "ConstructionColor": "gray",
@@ -82,25 +82,25 @@ setStyle()
       "UseDataDefinedColors": false
     }
   }
-  )");
+  )" );
 }
 
 
 //------------------------------------------------------------------------------
 
 int
-main(int argc, char* argv[])
+main ( int argc, char* argv[] )
 {
-  QApplication app(argc, argv);
+  QApplication app ( argc, argv );
 
   setStyle();
 
-  FlowScene scene(registerDataModels());
+  FlowScene scene ( registerDataModels() );
 
-  FlowView view(&scene);
+  FlowView view ( &scene );
 
-  view.setWindowTitle("Style example");
-  view.resize(800, 600);
+  view.setWindowTitle ( "Style example" );
+  view.resize ( 800, 600 );
   view.show();
 
   return app.exec();

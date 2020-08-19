@@ -27,24 +27,24 @@ public:
 
   static
   void
-  setNodeStyle(NodeStyle);
+  setNodeStyle ( NodeStyle );
 
   static
   void
-  setConnectionStyle(ConnectionStyle);
+  setConnectionStyle ( ConnectionStyle );
 
   static
   void
-  setFlowViewStyle(FlowViewStyle);
+  setFlowViewStyle ( FlowViewStyle );
 
 private:
 
   StyleCollection() = default;
 
-  StyleCollection(StyleCollection const&) = delete;
+  StyleCollection ( StyleCollection const& ) = delete;
 
   StyleCollection&
-  operator=(StyleCollection const&) = delete;
+  operator= ( StyleCollection const& ) = delete;
 
   static
   StyleCollection&

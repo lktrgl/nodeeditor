@@ -2,30 +2,30 @@
 
 TextSourceDataModel::
 TextSourceDataModel()
-  : _lineEdit(new QLineEdit("Default Text"))
+  : _lineEdit ( new QLineEdit ( "Default Text" ) )
 {
-  connect(_lineEdit, &QLineEdit::textEdited,
-          this, &TextSourceDataModel::onTextEdited);
+  connect ( _lineEdit, &QLineEdit::textEdited,
+            this, &TextSourceDataModel::onTextEdited );
 }
 
 
 unsigned int
 TextSourceDataModel::
-nPorts(PortType portType) const
+nPorts ( PortType portType ) const
 {
   unsigned int result = 1;
 
-  switch (portType)
+  switch ( portType )
   {
-    case PortType::In:
-      result = 0;
-      break;
+  case PortType::In:
+    result = 0;
+    break;
 
-    case PortType::Out:
-      result = 1;
+  case PortType::Out:
+    result = 1;
 
-    default:
-      break;
+  default:
+    break;
   }
 
   return result;
@@ -34,17 +34,17 @@ nPorts(PortType portType) const
 
 void
 TextSourceDataModel::
-onTextEdited(QString const &string)
+onTextEdited ( QString const& string )
 {
-  Q_UNUSED(string);
+  Q_UNUSED ( string );
 
-  Q_EMIT dataUpdated(0);
+  Q_EMIT dataUpdated ( 0 );
 }
 
 
 NodeDataType
 TextSourceDataModel::
-dataType(PortType, PortIndex) const
+dataType ( PortType, PortIndex ) const
 {
   return TextData().type();
 }
@@ -52,7 +52,7 @@ dataType(PortType, PortIndex) const
 
 std::shared_ptr<NodeData>
 TextSourceDataModel::
-outData(PortIndex)
+outData ( PortIndex )
 {
-  return std::make_shared<TextData>(_lineEdit->text());
+  return std::make_shared<TextData> ( _lineEdit->text() );
 }

@@ -14,15 +14,15 @@ class NODE_EDITOR_PUBLIC Properties
 public:
 
   void
-  put(QString const &name, QVariant const &v);
+  put ( QString const& name, QVariant const& v );
 
   template <typename T>
   bool
-  get(QString name, T* v) const
+  get ( QString name, T* v ) const
   {
-    QVariant const &var = _values[name];
+    QVariant const& var = _values[name];
 
-    if (var.canConvert<T>())
+    if ( var.canConvert<T>() )
     {
       *v = _values[name].value<T>();
 
@@ -32,13 +32,17 @@ public:
     return false;
   }
 
-  QVariantMap const &
+  QVariantMap const&
   values() const
-  { return _values; }
+  {
+    return _values;
+  }
 
-  QVariantMap &
+  QVariantMap&
   values()
-  { return _values; }
+  {
+    return _values;
+  }
 
 private:
 

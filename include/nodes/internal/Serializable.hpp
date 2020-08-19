@@ -17,6 +17,6 @@ public:
   save() const = 0;
 
   virtual void
-  restore(QJsonObject const & /*p*/) {}
+  restore ( QJsonObject const& /*p*/ ) {}
 };
 }

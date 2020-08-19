@@ -30,38 +30,47 @@ public:
 
   QString
   caption() const override
-  { return QString("Text Display"); }
+  {
+    return QString ( "Text Display" );
+  }
 
   bool
-  captionVisible() const override { return false; }
+  captionVisible() const override
+  {
+    return false;
+  }
 
   static QString
   Name()
-  { return QString("TextDisplayDataModel"); }
+  {
+    return QString ( "TextDisplayDataModel" );
+  }
 
   QString
   name() const override
-  { return TextDisplayDataModel::Name(); }
+  {
+    return TextDisplayDataModel::Name();
+  }
 
 public:
 
   unsigned int
-  nPorts(PortType portType) const override;
+  nPorts ( PortType portType ) const override;
 
   NodeDataType
-  dataType(PortType portType, PortIndex portIndex) const override;
+  dataType ( PortType portType, PortIndex portIndex ) const override;
 
   std::shared_ptr<NodeData>
-  outData(PortIndex port) override;
+  outData ( PortIndex port ) override;
 
   void
-  setInData(std::shared_ptr<NodeData> data, int) override
+  setInData ( std::shared_ptr<NodeData> data, int ) override
   {
-    auto textData = std::dynamic_pointer_cast<TextData>(data);
+    auto textData = std::dynamic_pointer_cast<TextData> ( data );
 
-    if (textData)
+    if ( textData )
     {
-      _label->setText(textData->text());
+      _label->setText ( textData->text() );
     }
     else
     {
@@ -71,10 +80,13 @@ public:
     _label->adjustSize();
   }
 
-  QWidget *
-  embeddedWidget() override { return _label; }
+  QWidget*
+  embeddedWidget() override
+  {
+    return _label;
+  }
 
 private:
 
-  QLabel * _label;
+  QLabel* _label;
 };

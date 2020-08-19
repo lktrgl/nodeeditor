@@ -22,11 +22,15 @@ public:
 
   QString
   caption() const override
-  { return QStringLiteral("Addition"); }
+  {
+    return QStringLiteral ( "Addition" );
+  }
 
   QString
   name() const override
-  { return QStringLiteral("Addition"); }
+  {
+    return QStringLiteral ( "Addition" );
+  }
 
 private:
 
@@ -38,20 +42,20 @@ private:
     auto n1 = _number1.lock();
     auto n2 = _number2.lock();
 
-    if (n1 && n2)
+    if ( n1 && n2 )
     {
       modelValidationState = NodeValidationState::Valid;
       modelValidationError = QString();
-      _result = std::make_shared<DecimalData>(n1->number() +
-                                              n2->number());
+      _result = std::make_shared<DecimalData> ( n1->number() +
+                n2->number() );
     }
     else
     {
       modelValidationState = NodeValidationState::Warning;
-      modelValidationError = QStringLiteral("Missing or incorrect inputs");
+      modelValidationError = QStringLiteral ( "Missing or incorrect inputs" );
       _result.reset();
     }
 
-    Q_EMIT dataUpdated(outPortIndex);
+    Q_EMIT dataUpdated ( outPortIndex );
   }
 };

@@ -22,15 +22,18 @@ class ConnectionGraphicsObject
 
 public:
 
-  ConnectionGraphicsObject(FlowScene &scene,
-                           Connection &connection);
+  ConnectionGraphicsObject ( FlowScene& scene,
+                             Connection& connection );
 
   virtual
   ~ConnectionGraphicsObject();
 
   enum { Type = UserType + 2 };
   int
-  type() const override { return Type; }
+  type() const override
+  {
+    return Type;
+  }
 
 public:
 
@@ -51,29 +54,29 @@ public:
   move();
 
   void
-  lock(bool locked);
+  lock ( bool locked );
 
 protected:
 
   void
-  paint(QPainter* painter,
-        QStyleOptionGraphicsItem const* option,
-        QWidget* widget = 0) override;
+  paint ( QPainter* painter,
+          QStyleOptionGraphicsItem const* option,
+          QWidget* widget = 0 ) override;
 
   void
-  mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+  mousePressEvent ( QGraphicsSceneMouseEvent* event ) override;
 
   void
-  mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+  mouseMoveEvent ( QGraphicsSceneMouseEvent* event ) override;
 
   void
-  mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+  mouseReleaseEvent ( QGraphicsSceneMouseEvent* event ) override;
 
   void
-  hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
+  hoverEnterEvent ( QGraphicsSceneHoverEvent* event ) override;
 
   void
-  hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
+  hoverLeaveEvent ( QGraphicsSceneHoverEvent* event ) override;
 
 private:
 
@@ -82,7 +85,7 @@ private:
 
 private:
 
-  FlowScene & _scene;
+  FlowScene& _scene;
 
   Connection& _connection;
 };

@@ -17,9 +17,9 @@ template<>
 struct hash<QString>
 {
   inline std::size_t
-  operator()(QString const &s) const
+  operator() ( QString const& s ) const
   {
-    return qHash(s);
+    return qHash ( s );
   }
 };
 }

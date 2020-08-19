@@ -37,32 +37,32 @@ static
 void
 setStyle()
 {
-  ConnectionStyle::setConnectionStyle(
+  ConnectionStyle::setConnectionStyle (
     R"(
   {
     "ConnectionStyle": {
       "UseDataDefinedColors": true
     }
   }
-  )");
+  )" );
 }
 
 
 //------------------------------------------------------------------------------
 
 int
-main(int argc, char* argv[])
+main ( int argc, char* argv[] )
 {
-  QApplication app(argc, argv);
+  QApplication app ( argc, argv );
 
   setStyle();
 
-  FlowScene scene(registerDataModels());
+  FlowScene scene ( registerDataModels() );
 
-  FlowView view(&scene);
+  FlowView view ( &scene );
 
-  view.setWindowTitle("Node-based flow editor");
-  view.resize(800, 600);
+  view.setWindowTitle ( "Node-based flow editor" );
+  view.resize ( 800, 600 );
   view.show();
 
   return app.exec();

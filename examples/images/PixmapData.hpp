@@ -15,8 +15,8 @@ public:
 
   PixmapData() {}
 
-  PixmapData(QPixmap const &pixmap)
-    : _pixmap(pixmap)
+  PixmapData ( QPixmap const& pixmap )
+    : _pixmap ( pixmap )
   {}
 
   NodeDataType
@@ -27,7 +27,10 @@ public:
   }
 
   QPixmap
-  pixmap() const { return _pixmap; }
+  pixmap() const
+  {
+    return _pixmap;
+  }
 
 private:
 

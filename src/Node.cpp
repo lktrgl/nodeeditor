@@ -24,21 +24,21 @@ using QtNodes::PortIndex;
 using QtNodes::PortType;
 
 Node::
-Node(std::unique_ptr<NodeDataModel> && dataModel)
-  : _uid(QUuid::createUuid())
-  , _nodeDataModel(std::move(dataModel))
-  , _nodeState(_nodeDataModel)
-  , _nodeGeometry(_nodeDataModel)
-  , _nodeGraphicsObject(nullptr)
+Node ( std::unique_ptr<NodeDataModel>&& dataModel )
+  : _uid ( QUuid::createUuid() )
+  , _nodeDataModel ( std::move ( dataModel ) )
+  , _nodeState ( _nodeDataModel )
+  , _nodeGeometry ( _nodeDataModel )
+  , _nodeGraphicsObject ( nullptr )
 {
   _nodeGeometry.recalculateSize();
 
   // propagate data: model => node
-  connect(_nodeDataModel.get(), &NodeDataModel::dataUpdated,
-          this, &Node::onDataUpdated);
+  connect ( _nodeDataModel.get(), &NodeDataModel::dataUpdated,
+            this, &Node::onDataUpdated );
 
-  connect(_nodeDataModel.get(), &NodeDataModel::embeddedWidgetSizeUpdated,
-          this, &Node::onNodeSizeUpdated );
+  connect ( _nodeDataModel.get(), &NodeDataModel::embeddedWidgetSizeUpdated,
+            this, &Node::onNodeSizeUpdated );
 }
 
 
@@ -66,16 +66,16 @@ save() const
 
 void
 Node::
-restore(QJsonObject const& json)
+restore ( QJsonObject const& json )
 {
-  _uid = QUuid(json["id"].toString());
+  _uid = QUuid ( json["id"].toString() );
 
   QJsonObject positionJson = json["position"].toObject();
-  QPointF     point(positionJson["x"].toDouble(),
-                    positionJson["y"].toDouble());
-  _nodeGraphicsObject->setPos(point);
+  QPointF     point ( positionJson["x"].toDouble(),
+                      positionJson["y"].toDouble() );
+  _nodeGraphicsObject->setPos ( point );
 
-  _nodeDataModel->restore(json["model"].toObject());
+  _nodeDataModel->restore ( json["model"].toObject() );
 }
 
 
@@ -89,21 +89,21 @@ id() const
 
 void
 Node::
-reactToPossibleConnection(PortType reactingPortType,
-                          NodeDataType const &reactingDataType,
-                          QPointF const &scenePoint)
+reactToPossibleConnection ( PortType reactingPortType,
+                            NodeDataType const& reactingDataType,
+                            QPointF const& scenePoint )
 {
   QTransform const t = _nodeGraphicsObject->sceneTransform();
 
-  QPointF p = t.inverted().map(scenePoint);
+  QPointF p = t.inverted().map ( scenePoint );
 
-  _nodeGeometry.setDraggingPosition(p);
+  _nodeGeometry.setDraggingPosition ( p );
 
   _nodeGraphicsObject->update();
 
-  _nodeState.setReaction(NodeState::REACTING,
-                         reactingPortType,
-                         reactingDataType);
+  _nodeState.setReaction ( NodeState::REACTING,
+                           reactingPortType,
+                           reactingDataType );
 }
 
 
@@ -111,12 +111,12 @@ void
 Node::
 resetReactionToConnection()
 {
-  _nodeState.setReaction(NodeState::NOT_REACTING);
+  _nodeState.setReaction ( NodeState::NOT_REACTING );
   _nodeGraphicsObject->update();
 }
 
 
-NodeGraphicsObject const &
+NodeGraphicsObject const&
 Node::
 nodeGraphicsObject() const
 {
@@ -124,7 +124,7 @@ nodeGraphicsObject() const
 }
 
 
-NodeGraphicsObject &
+NodeGraphicsObject&
 Node::
 nodeGraphicsObject()
 {
@@ -134,9 +134,9 @@ nodeGraphicsObject()
 
 void
 Node::
-setGraphicsObject(std::unique_ptr<NodeGraphicsObject>&& graphics)
+setGraphicsObject ( std::unique_ptr<NodeGraphicsObject>&& graphics )
 {
-  _nodeGraphicsObject = std::move(graphics);
+  _nodeGraphicsObject = std::move ( graphics );
 
   _nodeGeometry.recalculateSize();
 }
@@ -158,7 +158,7 @@ nodeGeometry() const
 }
 
 
-NodeState const &
+NodeState const&
 Node::
 nodeState() const
 {
@@ -166,7 +166,7 @@ nodeState() const
 }
 
 
-NodeState &
+NodeState&
 Node::
 nodeState()
 {
@@ -184,10 +184,10 @@ nodeDataModel() const
 
 void
 Node::
-propagateData(std::shared_ptr<NodeData> nodeData,
-              PortIndex inPortIndex) const
+propagateData ( std::shared_ptr<NodeData> nodeData,
+                PortIndex inPortIndex ) const
 {
-  _nodeDataModel->setInData(std::move(nodeData), inPortIndex);
+  _nodeDataModel->setInData ( std::move ( nodeData ), inPortIndex );
 
   //Recalculate the nodes visuals. A data change can result in the node taking more space than before, so this forces a recalculate+repaint on the affected node
   _nodeGraphicsObject->setGeometryChanged();
@@ -199,35 +199,42 @@ propagateData(std::shared_ptr<NodeData> nodeData,
 
 void
 Node::
-onDataUpdated(PortIndex index)
+onDataUpdated ( PortIndex index )
 {
-  auto nodeData = _nodeDataModel->outData(index);
+  auto nodeData = _nodeDataModel->outData ( index );
 
   auto connections =
-    _nodeState.connections(PortType::Out, index);
+    _nodeState.connections ( PortType::Out, index );
 
-  for (auto const & c : connections)
-    c.second->propagateData(nodeData);
+  for ( auto const& c : connections )
+  {
+    c.second->propagateData ( nodeData );
+  }
 }
 
 void
 Node::
 onNodeSizeUpdated()
 {
-    if( nodeDataModel()->embeddedWidget() )
-    {
-        nodeDataModel()->embeddedWidget()->adjustSize();
-    }
-    nodeGeometry().recalculateSize();
-    for(PortType type: {PortType::In, PortType::Out})
-    {
-        for(auto& conn_set : nodeState().getEntries(type))
+  if ( nodeDataModel()->embeddedWidget() )
+  {
+    nodeDataModel()->embeddedWidget()->adjustSize();
+  }
+
+  nodeGeometry().recalculateSize();
+
+  for ( PortType type :
         {
-            for(auto& pair: conn_set)
-            {
-                Connection* conn = pair.second;
-                conn->getConnectionGraphicsObject().move();
-            }
-        }
+          PortType::In, PortType::Out
+        } )
+  {
+    for ( auto& conn_set : nodeState().getEntries ( type ) )
+    {
+      for ( auto& pair : conn_set )
+      {
+        Connection* conn = pair.second;
+        conn->getConnectionGraphicsObject().move();
+      }
     }
+  }
 }

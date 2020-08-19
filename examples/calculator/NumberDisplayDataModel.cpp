@@ -4,29 +4,29 @@
 
 NumberDisplayDataModel::
 NumberDisplayDataModel()
-  : _label(new QLabel())
+  : _label ( new QLabel() )
 {
-  _label->setMargin(3);
+  _label->setMargin ( 3 );
 }
 
 
 unsigned int
 NumberDisplayDataModel::
-nPorts(PortType portType) const
+nPorts ( PortType portType ) const
 {
   unsigned int result = 1;
 
-  switch (portType)
+  switch ( portType )
   {
-    case PortType::In:
-      result = 1;
-      break;
+  case PortType::In:
+    result = 1;
+    break;
 
-    case PortType::Out:
-      result = 0;
+  case PortType::Out:
+    result = 0;
 
-    default:
-      break;
+  default:
+    break;
   }
 
   return result;
@@ -35,7 +35,7 @@ nPorts(PortType portType) const
 
 NodeDataType
 NumberDisplayDataModel::
-dataType(PortType, PortIndex) const
+dataType ( PortType, PortIndex ) const
 {
   return DecimalData().type();
 }
@@ -43,7 +43,7 @@ dataType(PortType, PortIndex) const
 
 std::shared_ptr<NodeData>
 NumberDisplayDataModel::
-outData(PortIndex)
+outData ( PortIndex )
 {
   std::shared_ptr<NodeData> ptr;
   return ptr;
@@ -52,20 +52,20 @@ outData(PortIndex)
 
 void
 NumberDisplayDataModel::
-setInData(std::shared_ptr<NodeData> data, int)
+setInData ( std::shared_ptr<NodeData> data, int )
 {
-  auto numberData = std::dynamic_pointer_cast<DecimalData>(data);
+  auto numberData = std::dynamic_pointer_cast<DecimalData> ( data );
 
-  if (numberData)
+  if ( numberData )
   {
     modelValidationState = NodeValidationState::Valid;
     modelValidationError = QString();
-    _label->setText(numberData->numberAsText());
+    _label->setText ( numberData->numberAsText() );
   }
   else
   {
     modelValidationState = NodeValidationState::Warning;
-    modelValidationError = QStringLiteral("Missing or incorrect inputs");
+    modelValidationError = QStringLiteral ( "Missing or incorrect inputs" );
     _label->clear();
   }
 

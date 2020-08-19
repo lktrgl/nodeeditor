@@ -22,9 +22,9 @@ public:
 
   virtual ~NodeData() = default;
 
-  virtual bool sameType(NodeData const &nodeData) const
+  virtual bool sameType ( NodeData const& nodeData ) const
   {
-    return (this->type().id == nodeData.type().id);
+    return ( this->type().id == nodeData.type().id );
   }
 
   /// Type for inner use

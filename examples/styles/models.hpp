@@ -22,7 +22,9 @@ public:
 
   NodeDataType
   type() const override
-  { return NodeDataType {"MyNodeData", "My Node Data"}; }
+  {
+    return NodeDataType {"MyNodeData", "My Node Data"};
+  }
 };
 
 //------------------------------------------------------------------------------
@@ -43,13 +45,13 @@ public:
   QString
   caption() const override
   {
-    return QString("My Data Model");
+    return QString ( "My Data Model" );
   }
 
   QString
   name() const override
   {
-    return QString("MyDataModel");
+    return QString ( "MyDataModel" );
   }
 
 public:
@@ -67,29 +69,32 @@ public:
 public:
 
   unsigned int
-  nPorts(PortType) const override
+  nPorts ( PortType ) const override
   {
     return 3;
   }
 
   NodeDataType
-  dataType(PortType, PortIndex) const override
+  dataType ( PortType, PortIndex ) const override
   {
     return MyNodeData().type();
   }
 
   std::shared_ptr<NodeData>
-  outData(PortIndex) override
+  outData ( PortIndex ) override
   {
     return std::make_shared<MyNodeData>();
   }
 
   void
-  setInData(std::shared_ptr<NodeData>, int) override
+  setInData ( std::shared_ptr<NodeData>, int ) override
   {
     //
   }
 
-  QWidget *
-  embeddedWidget() override { return nullptr; }
+  QWidget*
+  embeddedWidget() override
+  {
+    return nullptr;
+  }
 };

@@ -23,8 +23,8 @@ class NodeGraphicsObject : public QGraphicsObject
   Q_OBJECT
 
 public:
-  NodeGraphicsObject(FlowScene &scene,
-                     Node& node);
+  NodeGraphicsObject ( FlowScene& scene,
+                       Node& node );
 
   virtual
   ~NodeGraphicsObject();
@@ -49,43 +49,46 @@ public:
   enum { Type = UserType + 1 };
 
   int
-  type() const override { return Type; }
+  type() const override
+  {
+    return Type;
+  }
 
   void
-  lock(bool locked);
+  lock ( bool locked );
 
 protected:
   void
-  paint(QPainter*                       painter,
-        QStyleOptionGraphicsItem const* option,
-        QWidget*                        widget = 0) override;
+  paint ( QPainter*                       painter,
+          QStyleOptionGraphicsItem const* option,
+          QWidget*                        widget = 0 ) override;
 
   QVariant
-  itemChange(GraphicsItemChange change, const QVariant &value) override;
+  itemChange ( GraphicsItemChange change, const QVariant& value ) override;
 
   void
-  mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+  mousePressEvent ( QGraphicsSceneMouseEvent* event ) override;
 
   void
-  mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+  mouseMoveEvent ( QGraphicsSceneMouseEvent* event ) override;
 
   void
-  mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+  mouseReleaseEvent ( QGraphicsSceneMouseEvent* event ) override;
 
   void
-  hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
+  hoverEnterEvent ( QGraphicsSceneHoverEvent* event ) override;
 
   void
-  hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
+  hoverLeaveEvent ( QGraphicsSceneHoverEvent* event ) override;
 
   void
-  hoverMoveEvent(QGraphicsSceneHoverEvent *) override;
+  hoverMoveEvent ( QGraphicsSceneHoverEvent* ) override;
 
   void
-  mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
+  mouseDoubleClickEvent ( QGraphicsSceneMouseEvent* event ) override;
 
   void
-  contextMenuEvent(QGraphicsSceneContextMenuEvent* event) override;
+  contextMenuEvent ( QGraphicsSceneContextMenuEvent* event ) override;
 
 private:
   void
@@ -93,13 +96,13 @@ private:
 
 private:
 
-  FlowScene & _scene;
+  FlowScene& _scene;
 
   Node& _node;
 
   bool _locked;
 
   // either nullptr or owned by parent QGraphicsItem
-  QGraphicsProxyWidget * _proxyWidget;
+  QGraphicsProxyWidget* _proxyWidget;
 };
 }

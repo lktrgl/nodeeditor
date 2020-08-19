@@ -12,11 +12,11 @@ class DecimalData : public NodeData
 public:
 
   DecimalData()
-    : _number(0.0)
+    : _number ( 0.0 )
   {}
 
-  DecimalData(double const number)
-    : _number(number)
+  DecimalData ( double const number )
+    : _number ( number )
   {}
 
   NodeDataType type() const override
@@ -26,10 +26,14 @@ public:
   }
 
   double number() const
-  { return _number; }
+  {
+    return _number;
+  }
 
   QString numberAsText() const
-  { return QString::number(_number, 'f'); }
+  {
+    return QString::number ( _number, 'f' );
+  }
 
 private:
 

@@ -31,20 +31,23 @@ public:
 public:
 
   unsigned int
-  nPorts(PortType portType) const override;
+  nPorts ( PortType portType ) const override;
 
   NodeDataType
-  dataType(PortType portType,
-           PortIndex portIndex) const override;
+  dataType ( PortType portType,
+             PortIndex portIndex ) const override;
 
   std::shared_ptr<NodeData>
-  outData(PortIndex port) override;
+  outData ( PortIndex port ) override;
 
   void
-  setInData(std::shared_ptr<NodeData> data, PortIndex portIndex) override;
+  setInData ( std::shared_ptr<NodeData> data, PortIndex portIndex ) override;
 
-  QWidget *
-  embeddedWidget() override { return nullptr; }
+  QWidget*
+  embeddedWidget() override
+  {
+    return nullptr;
+  }
 
   NodeValidationState
   validationState() const override;
@@ -65,5 +68,5 @@ protected:
   std::shared_ptr<DecimalData> _result;
 
   NodeValidationState modelValidationState = NodeValidationState::Warning;
-  QString modelValidationError = QString("Missing or incorrect inputs");
+  QString modelValidationError = QString ( "Missing or incorrect inputs" );
 };

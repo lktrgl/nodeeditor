@@ -7,7 +7,7 @@ using QtNodes::ConnectionBlurEffect;
 using QtNodes::ConnectionGraphicsObject;
 
 ConnectionBlurEffect::
-ConnectionBlurEffect(ConnectionGraphicsObject*)
+ConnectionBlurEffect ( ConnectionGraphicsObject* )
 {
   //
 }
@@ -15,9 +15,9 @@ ConnectionBlurEffect(ConnectionGraphicsObject*)
 
 void
 ConnectionBlurEffect::
-draw(QPainter* painter)
+draw ( QPainter* painter )
 {
-  QGraphicsBlurEffect::draw(painter);
+  QGraphicsBlurEffect::draw ( painter );
 
   //ConnectionPainter::paint(painter,
   //_object->connectionGeometry(),
